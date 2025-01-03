@@ -1,0 +1,18 @@
+{
+    "name": "hexlet/code",
+    "type": "project",
+    "license": "mit",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Anatoliy Yushkevich",
+            "email": "104827125+TolIkUshkevich@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {}
+}

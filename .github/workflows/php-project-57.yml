@@ -1,0 +1,31 @@
+name: php-project-57
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - run: composer install
+      - name: Run tests
+      - run: make test
+      - name: Publish linter results
+      - run: make lint
+      - name: Publish code coverage
+        uses: paambaati/codeclimate-action@v5
+        env:
+          CC_TEST_REPORTER: ${{ secrets.CC_TEST_REPORTER }}
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: build/logs/clover.xml:clover
+          debug: true

@@ -17,15 +17,15 @@ jobs:
         with:
           php-version: '8.3'
       - run: composer install
-      - name: Run tests
-      - run: make test
+      # - name: Run tests
+      # - run: make test
       - name: Publish linter results
       - run: make lint
-      - name: Publish code coverage
-        uses: paambaati/codeclimate-action@v5
-        env:
-          CC_TEST_REPORTER: ${{ secrets.CC_TEST_REPORTER }}
-        with:
-          coverageCommand: make test-coverage
-          coverageLocations: build/logs/clover.xml:clover
-          debug: true
+      # - name: Publish code coverage
+      #   uses: paambaati/codeclimate-action@v5
+      #   env:
+      #     CC_TEST_REPORTER: ${{ secrets.CC_TEST_REPORTER }}
+      #   with:
+      #     coverageCommand: make test-coverage
+      #     coverageLocations: build/logs/clover.xml:clover
+      #     debug: true

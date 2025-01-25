@@ -25,13 +25,20 @@
                     </a>
 
                     <div class="flex items-center lg:order-2">
-                            <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Вход
-                            </a>
-                            <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
-                                   Регистрация
-                            </a>
-                                                                        </div>
+                        @if ($logged)
+                        <form method="post" action="/logout">
+                            @csrf
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
+                        </form>
+                        @else
+                        <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Вход
+                        </a>
+                        <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                               Регистрация
+                        </a>
+                        @endif
+                    </div>
 
                     <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
                         <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">

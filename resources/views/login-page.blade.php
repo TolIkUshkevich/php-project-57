@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;display=swap">
+        <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 
         <!-- Scripts -->
         <link rel="preload" as="style" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css"><link rel="modulepreload" href="https://php-task-manager-ru.hexlet.app/build/assets/app.42df0f0d.js"><link rel="stylesheet" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css"><script type="module" src="https://php-task-manager-ru.hexlet.app/build/assets/app.42df0f0d.js"></script>    </head>
@@ -21,15 +22,26 @@
         
         <!-- Validation Errors -->
         
-        <form method="POST" action="https://php-task-manager-ru.hexlet.app/login">
-            <input type="hidden" name="_token" value="wuNqy0P6TTzSdzkwsgo1NxUUjDCs8RDGN9ZLDJXS" autocomplete="off">
+        <form method="POST" action="/login">
+            @csrf
+        @if(session('error'))
+        <div class="mb-4">
+        <div class="font-medium text-red-600">
+            {{ session('error')['errorTitle'] }}
+        </div>
+
+        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+            <li>{{ session('error')['errorContecst'] }}</li>
+        </ul>
+        </div>
+        @endif
             <!-- Email Address -->
             <div>
                 <label class="block font-medium text-sm text-gray-700" for="email">
     Email
-</label>
+    </label>
 
-                <input class="rounded-md shadow-sm border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 block mt-1 w-full" id="email" type="email" name="email" required="required" autofocus="autofocus">
+                <input class="rounded-md shadow-sm border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 block mt-1 w-full" id="email" type="email" name="email" required="required" autofocus="autofocus" value="{{ session('email') ?? '' }}">
             </div>
 
             <!-- Password -->

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Logic;
+namespace App\Services;
 
 use Valitron\Validator as BaseValidator;
 use Illuminate\Support\Facades\Hash;

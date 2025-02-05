@@ -3,14 +3,14 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use App\Models\Status;
 
 class StatusTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     */
-    public function test_example(): void
+    use RefreshDatabase;
+
+    public function __setUp(): void
     {
-        $this->assertTrue(true);
+        // $controller = 
     }
 }

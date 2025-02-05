@@ -32,7 +32,7 @@
             </div>
 
             <ul class="mt-3 list-disc list-inside text-sm text-red-600">
-                <li>{{ session('error')['errorContecst'] }}</li>
+                <li>{{ session('error')['errorContent'] }}</li>
             </ul>
             </div>
             @endif

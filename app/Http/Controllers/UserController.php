@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Services\Validator;
+use App\Validators\UserValidator;
 
 class UserController extends Controller
 {
@@ -30,7 +30,7 @@ class UserController extends Controller
     
     public function register(Request $request)
     {
-        $validator = new Validator;
+        $validator = new UserValidator;
         $name = $request->input("name");
         $email = $request->input("email");
         $passwordConfirmation = $request->input("password_confirmation");

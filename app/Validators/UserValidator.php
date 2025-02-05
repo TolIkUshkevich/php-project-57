@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Services;
+namespace App\Validators;
 
 use Valitron\Validator as BaseValidator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 
-class Validator
+class UserValidator
 {
     private string $errorTitle = '';
-    private string $errorContecst = '';
+    private string $errorContent = '';
 
     public function loginValidate(null|\App\Models\User $user, string $password): bool
     {
@@ -18,7 +18,7 @@ class Validator
             return true;
         } else {
             $this->errorTitle = 'Упс! Что-то пошло не так:';
-            $this->errorContecst = 'Введите правильные имя пользователя и пароль';
+            $this->errorContent = 'Введите правильные имя пользователя и пароль';
             return false;
         }
     }
@@ -32,13 +32,13 @@ class Validator
         $confirmed = $password === $passwordConfirmation;
         if ($exists) {
             $this->errorTitle = 'Упс! Что-то пошло не так:';
-            $this->errorContecst = 'Пользователь с таким email уже существует';
+            $this->errorContent = 'Пользователь с таким email уже существует';
         } elseif (!$valid) {
             $this->errorTitle = 'Упс! Что-то пошло не так:';
-            $this->errorContecst = 'Пароль должен иметь длину не менее 8 символов';
+            $this->errorContent = 'Пароль должен иметь длину не менее 8 символов';
         } elseif (!$confirmed) {
             $this->errorTitle = 'Упс! Что-то пошло не так:';
-            $this->errorContecst = 'Пароль и подтверждение не совпадают';
+            $this->errorContent = 'Пароль и подтверждение не совпадают';
         }
         return $valid and !$exists and $confirmed;
 
@@ -46,6 +46,6 @@ class Validator
 
     public function errors(): array
     {
-        return ['errorTitle' => $this->errorTitle, 'errorContecst' => $this->errorContecst];
+        return ['errorTitle' => $this->errorTitle, 'errorContent' => $this->errorContent];
     }
 }

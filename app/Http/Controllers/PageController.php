@@ -18,19 +18,25 @@ class PageController extends Controller
         return view('login-page');
     }
 
-    public function showRegPage()
+    public function showRegisterPage()
     {
         return view('reg-page');
     }
 
     public function showStatusesPage()
     {
-        return view('statuses-page');
+        $statuses = Status::all();
+        return view('statuses-page', ['statuses' => $statuses]);
     }
 
     public function showStatusCreatePage()
     {
-        $statuses = Status::all();
-        return view('status-create-page', ['statuses' => $statuses]);
+        return view('status-create-page');
+    }
+
+    public function showStatusEditPage(string $id)
+    {
+        $status = Status::where('status_id', $id)->first();
+        return view('status-edit-page', ['status' => $status]);
     }
 }

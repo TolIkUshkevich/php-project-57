@@ -1,24 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\RegisteredUserController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatusController;
 
-Route::get('/', [PageController::class, 'showMainPage'])->name('main');
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'showMainPage')->name('main.page');
+    Route::get('/task_statuses', 'showStatusesPage')->name('statuses.page');
+    Route::get('/task_statuses/create', 'showStatusCreatePage')->name('status.create.page');
+    Route::get('/task_statuses/{id}/edit', 'showStatusEditPage')->name('status.edit.page');
+});
 
-Route::get('/login', [PageController::class, 'showLoginPage'])->name('loginPage');
+Route::controller(StatusController::class)->group(function () {
+    Route::post('/task_statuses', 'create')->name('status.create');
+    Route::patch('/task_statuses/{id}/edit', 'edit')->name('status.edit');
+});
 
-Route::get('/register', [PageController::class, 'showRegPage'])->name('regPage');
-
-Route::post('/register', [UserController::class, 'register'])->name('postReg');
-
-Route::post('/login', [UserController::class, 'login'])->name('postLogin');
-
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
-
-Route::get('/task_statuses', [PageController::class, 'showStatusesPage'])->name('statusesPage');
-
-Route::get('/task_statuses/create', [PageController::class, 'showStatusCreatePage'])->name('statusCreate');
-
-Route::post('/task_statuses', [StatusController::class, 'create'])->name('postStatusCreate');
+require __DIR__.'/auth.php';

@@ -18,7 +18,7 @@
 <body>
     <div id="app">
         <header class="fixed w-full">
-            <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
+            <nav class="bg-white border-gray-200 py-2.5 shadow-md">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                     <a href="https://php-task-manager-ru.hexlet.app" class="flex items-center">
                         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер задач</span>
@@ -60,7 +60,7 @@
             </nav>
         </header>
 
-        <section class="bg-white dark:bg-gray-900">
+        <section class="bg-white">
             <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
                                     <div class="mr-auto place-self-center lg:col-span-7">
         <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">

@@ -18,7 +18,7 @@
 <body>
     <div id="app">
         <header class="fixed w-full">
-            <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
+            <nav class="bg-white border-gray-200 py-2.5 shadow-md">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                     <a href="https://php-task-manager-ru.hexlet.app" class="flex items-center">
                         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер задач</span>
@@ -64,13 +64,22 @@
             </nav>
         </header>
 
-        <section class="bg-white dark:bg-gray-900">
+        <section class="bg-white">
             <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
                                 <div class="grid col-span-full">
     <h1 class="mb-5">Создать статус</h1>
 
-    <form class="w-50" method="POST" action="/task_statuses"><input type="hidden" name="_token" value="XbwGNRtNblBtbc4MLCI2Kolv9JDmqtotoJnbg9Q0">
+    <form class="w-50" method="POST" action="{{ route('status.create') }}"><input type="hidden" name="_token" value="XbwGNRtNblBtbc4MLCI2Kolv9JDmqtotoJnbg9Q0">
     @csrf
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="flex flex-col">
         <div>
             <label for="name">Имя</label>
@@ -78,7 +87,7 @@
         <div class="mt-2">
             <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{ session('name') ?? '' }}">
         </div>
-            <div class="text-rose-600">{{ session('error')['errorContent'] ?? '' }}</div>
+            <!-- <div class="text-rose-600">{{ session('error')['errorContent'] ?? '' }}</div> -->
                 <div class="mt-2">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Создать</button>
         </div>

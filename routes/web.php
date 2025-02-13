@@ -15,7 +15,7 @@ Route::controller(PageController::class)->group(function () {
 
 Route::controller(StatusController::class)->group(function () {
     Route::post('/task_statuses', 'create')->name('status.create');
-    Route::patch('/task_statuses/{id}/edit', 'edit')->name('status.edit');
+    Route::patch('/task_statuses/{id}', 'update')->name('status.update');
 });
 
 require __DIR__.'/auth.php';

@@ -85,7 +85,7 @@
             <label for="name">Имя</label>
         </div>
         <div class="mt-2">
-            <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{ session('name') ?? '' }}">
+            <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{old('name')}}">
         </div>
             <!-- <div class="text-rose-600">{{ session('error')['errorContent'] ?? '' }}</div> -->
                 <div class="mt-2">

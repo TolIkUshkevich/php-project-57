@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Status;
+use Illuminate\Validation\Rule;
 
 class StatusEditRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class StatusEditRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,10 @@ class StatusEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [
+                'required',
+                Rule::unique(Status::class)
+            ]
         ];
     }
 }

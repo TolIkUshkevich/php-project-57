@@ -25,7 +25,7 @@ class PageController extends Controller
 
     public function showStatusesPage()
     {
-        $statuses = Status::all();
+        $statuses = Status::orderBy('status_id')->get();
         return view('statuses-page', ['statuses' => $statuses]);
     }
 

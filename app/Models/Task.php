@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Status;
+use App\Models\User;
 
 class Task extends Model
 {
@@ -23,5 +24,15 @@ class Task extends Model
     public function ststus(): HasOne
     {
         return $this->hasOne(Status::class);
+    }
+
+    public function createdBy(): HasOne
+    {
+        return $this->hasOne(User::class, 'created_by_id');
+    }
+
+    public function createdTo(): HasOne
+    {
+        return $this->hasOne(User::class, 'created_by_id');
     }
 }

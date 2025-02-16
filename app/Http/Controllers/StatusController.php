@@ -11,7 +11,9 @@ class StatusController extends Controller
 {
     public function create(StatusCreateRequest $request)
     {
-        $name = $request->name;
+        $validData = $request->validated();
+        dd($validData);
+        $name = $validData['name'];
         Status::create(['name' => $name]);
         return redirect()
             ->route('statuses.page');

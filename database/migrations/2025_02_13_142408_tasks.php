@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->foreignId('status_id')->constrained()->cascadeOnDelete();
             $table->foreignId('created_by_id')->constrainted('users')->cascadeOnDelete();
+            $table->foreignId('assigned_to_id')->constrainted('users')->cascadeOnDelete();
         });
     }
 

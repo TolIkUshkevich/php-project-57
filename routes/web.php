@@ -11,6 +11,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/task_statuses', 'showStatusesPage')->name('statuses.page');
     Route::get('/task_statuses/create', 'showStatusCreatePage')->name('status.create.page');
     Route::get('/task_statuses/{id}/edit', 'showStatusEditPage')->name('status.edit.page');
+    Route::get('/tasks', 'showTasksPage')->name('tasks.page');
 });
 
 Route::controller(StatusController::class)->group(function () {

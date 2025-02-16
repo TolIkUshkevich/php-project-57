@@ -25,7 +25,7 @@ class PageController extends Controller
 
     public function showStatusesPage()
     {
-        $statuses = Status::orderBy('status_id')->get();
+        $statuses = Status::orderBy('id')->get();
         return view('statuses-page', ['statuses' => $statuses]);
     }
 
@@ -36,7 +36,7 @@ class PageController extends Controller
 
     public function showStatusEditPage(string $id)
     {
-        $status = Status::where('status_id', $id)->first();
+        $status = Status::find($id);
         return view('status-edit-page', ['status' => $status]);
     }
 }

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('name');
-            $table->timestamps();
+        Schema::create('asigned_to_tasks', function (Blueprint $table) {
+            $table->foreignId('task_id')->constrainted()->cascadeOnDelete();
+            $table->foreignId('assigned_to_id')->constrainted('users')->cascadeOnDelete();
         });
     }
 
@@ -24,7 +23,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('asigned_to_tasks');
-        Schema::dropIfExists('tasks');
-        Schema::dropIfExists('statuses');
     }
 };

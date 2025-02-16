@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id('id');
             $table->string('name');
-            $table->timestamps();
+            $table->text('description');
+            $table->foreignId('status_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('created_by_id')->constrainted('users')->cascadeOnDelete();
         });
     }
 
@@ -22,9 +24,7 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
+    //
     {
-        Schema::dropIfExists('asigned_to_tasks');
-        Schema::dropIfExists('tasks');
-        Schema::dropIfExists('statuses');
     }
 };

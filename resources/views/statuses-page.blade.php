@@ -83,15 +83,19 @@
         <tbody>
             @foreach($statuses as $status)
             <tr class="border-b border-dashed text-left">
-                <td style="color:#2861C3">{{ $status->status_id }}</td>
+                <td style="color:#2861C3">{{ $status->id }}</td>
                 <td style="color:#2861C3">{{ $status->name }}</td>
                 <td style="color:#2861C3">{{ $status->created_at }}</td>
                 @if(Auth::user())
                 <td>
-                    <a data-confirm="Вы уверены?" data-method="delete" class="text-red-600 hover:text-red-900" href="/task_statuses/{{ $status->status_id }}">
+                <form method="POST" action="{{ route('status.destroy', ['id' => $status->id]) }}" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-red-600 hover:text-red-900">
                         Удалить
-                    </a>
-                    <a class="text-blue-600 hover:text-blue-900" href="/task_statuses/{{ $status->status_id }}/edit">
+                    </button>
+                </form>
+                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('status.update', ['id' => $status->id]) }}">
                         Изменить
                     </a>
                 </td>

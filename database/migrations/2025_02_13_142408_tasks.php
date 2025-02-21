@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id('id');
             $table->string('name');
-            $table->text('description');
-            $table->foreignId('status_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('created_by_id')->constrainted('users')->cascadeOnDelete();
-            $table->foreignId('assigned_to_id')->constrainted('users')->cascadeOnDelete();
+            $table->text('description')->nullable();
+            $table->foreignId('status_id')->nullable()->constrained();
+            $table->foreignId('created_by_id')->nullable()->constrained(table: 'users');
+            $table->foreignId('assigned_to_id')->nullable()->constrained(table: 'users');
+            $table->timestamps();
         });
     }
 

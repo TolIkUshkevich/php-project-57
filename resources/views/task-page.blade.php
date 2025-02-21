@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
 <html lang="ru"><head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- CSRF Token -->
-    <meta name="csrf-token" content="GtAnPZl9b8c1tjyIvS6hC7bfbhclbe0jzXvbZzKf">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="UvJ2K5dmegleRFJpNnCCHTrXhUyHdMwuykntQonu">
     <meta name="csrf-param" content="_token">
 
     <title>Менеджер задач</title>
@@ -13,15 +12,14 @@
     <link rel="preload" as="style" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css"><link rel="modulepreload" href="https://php-task-manager-ru.hexlet.app/build/assets/app.42df0f0d.js"><link rel="stylesheet" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css"><script type="module" src="https://php-task-manager-ru.hexlet.app/build/assets/app.42df0f0d.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <header class="fixed w-full">
-            <nav class="bg-white border-gray-200 py-2.5 shadow-md">
+            <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
-                    <a href="https://php-task-manager-ru.hexlet.app" class="flex items-center">
+                    <a href="/" class="flex items-center">
                         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер задач</span>
                     </a>
 
@@ -63,53 +61,39 @@
 
         <section class="bg-white">
             <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-                <div class="grid col-span-full">
-                    <h1 class="mb-5">Статусы</h1>
-                    
-                    @include('flash::message')
-    <div>
-        @if(Auth::check())
-        <a href="/task_statuses/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Создать статус
-        </a>
-        @endif
+                                <div class="grid col-span-full">
+    <h2 class="mb-5">
+        Просмотр задачи: {{ $task->name }}        <a href="/tasks/16/edit">⚙</a>
+        </h2>
+        <p><span class="font-black">Имя:</span> {{ $task->name }}</p>
+        <p><span class="font-black">Статус:</span> {{ $task->status->name }}</p>
+        <p><span class="font-black">Описание:</span>{{ $task->description }}</p>
+                <p><span class="font-black">Метки:</span></p>
+        <div>
+                        <div class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                </svg>
+                дубликат
             </div>
-            <table class="mt-4">
-        <thead class="border-b-2 border-solid border-black text-left">
-            <tr>
-                <th style="color:#2861C3">ID</th>
-                <th style="color:#2861C3">Имя</th>
-                <th style="color:#2861C3">Дата создания</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($statuses as $status)
-            <tr class="border-b border-dashed text-left">
-                <td style="color:#2861C3">{{ $status->id }}</td>
-                <td style="color:#2861C3">{{ $status->name }}</td>
-                <td style="color:#2861C3">{{ $status->created_at }}</td>
-                @if(Auth::check())
-                <td>
-                <form method="POST" action="{{ route('status.destroy', ['id' => $status->id]) }}" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="text-red-600 hover:text-red-900">
-                        Удалить
-                    </button>
-                </form>
-                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('status.update.page', ['id' => $status->id]) }}">
-                        Изменить
-                    </a>
-                </td>
-                @endif
-            </tr>
-            @endforeach
-            </tbody></table>
-    
-</div>
+                        <div class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                </svg>
+                ошибка
+            </div>
+                        <div class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                </svg>
+                документация
+            </div>
+                    </div>
+        </div>
             </div>
         </section>
     </div>
 
 
 </body></html>
+<!DOCTYPE html>

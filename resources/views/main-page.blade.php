@@ -25,7 +25,7 @@
                     </a>
 
                     <div class="flex items-center lg:order-2">
-                        @if (Auth::user())
+                        @if (Auth::check())
                         <form method="post" action="/logout">
                             @csrf
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
@@ -43,7 +43,7 @@
                     <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
                         <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <li>
-                                <a href="" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
+                                <a href="/tasks" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
                                     Задачи                                </a>
                             </li>
                             <li>
@@ -51,7 +51,7 @@
                                     Статусы                                </a>
                             </li>
                             <li>
-                                <a href="https://php-task-manager-ru.hexlet.app/labels" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
+                                <a href="/labels" class="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 lg:p-0">
                                     Метки                                </a>
                             </li>
                         </ul>

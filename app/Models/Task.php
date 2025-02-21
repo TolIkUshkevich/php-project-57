@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Status;
 use App\Models\User;
@@ -11,7 +12,7 @@ class Task extends Model
 {
     protected $table = 'tasks';
 
-    protected $primaryKey = 'task_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
@@ -21,18 +22,24 @@ class Task extends Model
         'assigned_to_id'
     ];
 
-    public function ststus(): HasOne
+    public function status(): HasOne
     {
-        return $this->hasOne(Status::class);
+        return $this->hasOne(Status::class, 'id', 'status_id');
     }
 
-    public function createdBy(): HasOne
+    public function author(): BelongsTo
     {
-        return $this->hasOne(User::class, 'created_by_id');
+        return $this->belongsTo(User::class, 'created_by_id', 'id');
     }
 
-    public function createdTo(): HasOne
+    public function performer(): BelongsTo
     {
-        return $this->hasOne(User::class, 'created_by_id');
+        return $this->belongsTo(User::class, 'assigned_to_id', 'id')
+            ->withDefault(function () {
+                return new User([
+                    'name' => '',
+                    'email' => ''
+                ]);
+            });
     }
 }

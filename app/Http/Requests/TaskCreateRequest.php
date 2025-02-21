@@ -3,14 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Status;
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 
-
-class StatusCreateRequest extends FormRequest
+class TaskCreateRequest extends FormRequest
 {
-    // protected $redirectRoute = 'status.create';
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -31,7 +29,20 @@ class StatusCreateRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(Status::class)
+                Rule::unique(Task::class)
+            ],
+            'description' => [
+                'nullable'
+            ],
+            'status_id' => [
+                'required'
+            ],
+            'created_by_id' => [
+                'required'
+            ],
+            'assigned_to_id' => [
+                'nullable',
+                Rule::exists(User::class, 'id')
             ]
         ];
     }

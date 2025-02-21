@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
 <html lang="ru"><head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- CSRF Token -->
-    <meta name="csrf-token" content="GtAnPZl9b8c1tjyIvS6hC7bfbhclbe0jzXvbZzKf">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="LWAY9Cqk8SwpiBwIYB2O0Vgl3ojvZHlvgg3QGBkk">
     <meta name="csrf-param" content="_token">
 
     <title>Менеджер задач</title>
@@ -13,13 +13,12 @@
     <link rel="preload" as="style" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css"><link rel="modulepreload" href="https://php-task-manager-ru.hexlet.app/build/assets/app.42df0f0d.js"><link rel="stylesheet" href="https://php-task-manager-ru.hexlet.app/build/assets/app.4885a691.css"><script type="module" src="https://php-task-manager-ru.hexlet.app/build/assets/app.42df0f0d.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <header class="fixed w-full">
-            <nav class="bg-white border-gray-200 py-2.5 shadow-md">
+    <header class="fixed w-full">
+            <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                     <a href="https://php-task-manager-ru.hexlet.app" class="flex items-center">
                         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер задач</span>
@@ -63,49 +62,69 @@
 
         <section class="bg-white">
             <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-                <div class="grid col-span-full">
-                    <h1 class="mb-5">Статусы</h1>
-                    
-                    @include('flash::message')
-    <div>
-        @if(Auth::check())
-        <a href="/task_statuses/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Создать статус
-        </a>
-        @endif
-            </div>
-            <table class="mt-4">
-        <thead class="border-b-2 border-solid border-black text-left">
-            <tr>
-                <th style="color:#2861C3">ID</th>
-                <th style="color:#2861C3">Имя</th>
-                <th style="color:#2861C3">Дата создания</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($statuses as $status)
-            <tr class="border-b border-dashed text-left">
-                <td style="color:#2861C3">{{ $status->id }}</td>
-                <td style="color:#2861C3">{{ $status->name }}</td>
-                <td style="color:#2861C3">{{ $status->created_at }}</td>
-                @if(Auth::check())
-                <td>
-                <form method="POST" action="{{ route('status.destroy', ['id' => $status->id]) }}" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="text-red-600 hover:text-red-900">
-                        Удалить
-                    </button>
-                </form>
-                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('status.update.page', ['id' => $status->id]) }}">
-                        Изменить
-                    </a>
-                </td>
-                @endif
-            </tr>
-            @endforeach
-            </tbody></table>
-    
+                                <div class="grid col-span-full">
+    <h1 class="mb-5">Создать задачу</h1>
+
+    <form class="w-50" method="POST" action="/tasks">
+        <input type="hidden" name="_token" value="LWAY9Cqk8SwpiBwIYB2O0Vgl3ojvZHlvgg3QGBkk">
+        @csrf
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div class="flex flex-col">
+        <div>
+            <label for="name">Имя</label>
+        </div>
+        <div class="mt-2">
+            <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{ old('name') }}">
+        </div>
+                <div class="mt-2">
+            <label for="description">Описание</label>
+        </div>
+        <div>
+            <textarea class="rounded border-gray-300 w-1/3 h-32" name="description" id="description" value="{{ old('description') }}"></textarea>
+        </div>
+        <div class="mt-2">
+            <label for="status_id">Статус</label>
+        </div>
+        <div>
+            <select class="rounded border-gray-300 w-1/3" name="status_id" id="status_id" value="{{ old('status_id') }}">
+            <option value="" selected="selected"></option>
+                @foreach ($statuses as $status)
+                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                    @endforeach
+        </div>
+        </select>
+
+                <div class="mt-2">
+            <label for="assigned_to_id">Исполнитель</label>
+        </div>
+        <div>
+            <select class="rounded border-gray-300 w-1/3" name="assigned_to_id" id="assigned_to_id" value="{{ old('assigned_to_id') }}">
+            <option value="" selected="selected"></option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mt-2">
+            <label for="status_id">Метки</label>
+        </div>
+        <div>
+            <select class="rounded border-gray-300 w-1/3 h-32" name="labels[]" id="labels[]" multiple=""><option value="1">ошибка</option><option value="2">документация</option><option value="3">дубликат</option><option value="4">доработка</option></select>
+        </div>
+        <div class="mt-2">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Создать</button>
+        </div>
+        <input type="hidden" value="{{ Auth::user()->id }}" name="created_by_id" id="created_by_id">
+    </div>
+    </form>
 </div>
             </div>
         </section>

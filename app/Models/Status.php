@@ -17,7 +17,7 @@ class Status extends Model
         'name'
     ];
 
-    public function task(): BelongsTo
+    public function tasks(): BelongsTo
     {
         return $this->belongsTo(Task::class);
     }

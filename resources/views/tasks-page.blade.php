@@ -113,14 +113,14 @@
                             @if(Auth::check())
                                 <td>
                                     @if(Auth::user()->id === $task->author->id)
-                                    <form method="POST" action="{{ route('task.destroy', ['id' => $task->id]) }}" style="display: inline;">
-                                        @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" value="{{ $task->id }}" name="id" id="id">
-                                            <button type="submit" class="text-red-600 hover:text-red-900">
-                                                Удалить
-                                            </button>
-                                        </form>
+                                    @can('delete', $task)
+                                <a href="{{ route('tasks.destroy', ['task' => $task->id]) }}" 
+                                    data-confirm="{{__('trans.dataConfirm')}}" 
+                                    data-method="delete" 
+                                    rel="nofollow">
+                                            {{__('trans.delete')}}       
+                                </a>
+                            @endcan
                                     @endif
                                     <a class="text-blue-600 hover:text-blue-900" href="{{ route('task.update.page', ['id' => $task->id]) }}">
                                         Изменить

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('labels', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('name');
-            $table->text('description')->nullable();
+        Schema::create('label_task', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('label_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        
+        Schema::dropIfExists('label_task');
     }
 };

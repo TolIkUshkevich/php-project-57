@@ -11,6 +11,13 @@ class StatusTest extends TestCase
 
     public function __setUp(): void
     {
-        // $controller = 
+        
+    }
+
+    public function testStatusCreate(): void
+    {
+        $response = $this->post('/task_status/create', ['name' => 'new']);
+        
+        
     }
 }

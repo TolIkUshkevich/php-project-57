@@ -5,7 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Status;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StatusCreateRequest extends FormRequest
 {
@@ -34,5 +35,16 @@ class StatusCreateRequest extends FormRequest
                 Rule::unique(Status::class)
             ]
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput()
+                ->setStatusCode(422)
+        );
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StatusCreateRequest;
-use App\Http\Requests\StatusEditRequest;
+use App\Http\Requests\StatusUpdateRequest;
 use App\Http\Requests\StatusDestroyRequest;
 use Illuminate\Http\Request;
 use App\Models\Status;
@@ -20,10 +20,9 @@ class StatusController extends Controller
             ->route('statuses.page');
     }
 
-    public function update(StatusEditRequest $request, string $id)
+    public function update(StatusUpdateRequest $request, Status $status)
     {   
         $name = $request->validated()['name'];
-        $status = Status::find($id);
         $status->name = $name;
         $status->save();
         flash('Статус успешно обновлен')->success();
@@ -31,9 +30,8 @@ class StatusController extends Controller
             ->route('statuses.page');
     }
 
-    public function destroy(Request $request, string $id)
+    public function destroy(Request $request, Status $status)
     {
-        $status = Status::find($id);
         try {
             $status->delete();
             flash('Статус успешно удалён')->success();

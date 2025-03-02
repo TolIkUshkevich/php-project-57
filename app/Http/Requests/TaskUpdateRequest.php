@@ -24,20 +24,24 @@ class TaskUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $task = $this->route('task');
         return [
             'name' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
+                Rule::unique(Task::class)->ignore($task->id)
             ],
             'description' => [
+                'nullable',
                 'string'
             ],
             'status_id' => [
                 'required'
             ],
             'assigned_to_id' => [
-                Rule::exists(User::class, 'id')
+                'nullable',
+                Rule::exists(User::class)
             ]
         ];
     }

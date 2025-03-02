@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html lang="ru"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="1P7UXS4vfFQ3LHWXFLZjB01urpE11N7V8pntuIAq">
+    <meta name="csrf-token" content="pgxAZY6IVH1vWcT6mW7AHe4b4siHqAEEP2km7jyv">
     <meta name="csrf-param" content="_token">
 
     <title>Менеджер задач</title>
@@ -17,27 +16,27 @@
 </head>
 <body>
     <div id="app">
-        <header class="fixed w-full">
+    <header class="fixed w-full">
             <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                     <a href="/" class="flex items-center">
                         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер задач</span>
                     </a>
-
                     <div class="flex items-center lg:order-2">
-                        @if (Auth::check())
+                        @auth
                         <form method="post" action="/logout">
                             @csrf
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
                         </form>
-                        @else
+                        @endauth
+                        @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Вход
                         </a>
                         <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                                Регистрация
                         </a>
-                        @endif
+                        @endguest
                     </div>
 
                     <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
@@ -60,14 +59,13 @@
             </nav>
         </header>
 
-        <section class="bg-white dark:bg-gray-900">
+        <section class="bg-white">
             <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
                                 <div class="grid col-span-full">
-    <h1 class="mb-5">Изменение статуса</h1>
-    <form class="w-50" method="POST" action="{{ route('status.update', ['id' => $status->id]) }}">
-    @method('PATCH')
+    <h1 class="mb-5">Изменение метки</h1>
+
+    <form class="w-50" method="POST" action="/labels/{{ $label->id }}"><input type="hidden" name="_method" id="_method" value="PATCH"><input type="hidden" name="_token" value="pgxAZY6IVH1vWcT6mW7AHe4b4siHqAEEP2km7jyv">
     @csrf
-    <div class="flex flex-col">
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -77,11 +75,18 @@
             </ul>
         </div>
     @endif
+    <div class="flex flex-col">
         <div>
             <label for="name">Имя</label>
         </div>
         <div class="mt-2">
-            <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{ old('name') ?? $status->name }}">
+            <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{ $label->name }}">
+        </div>
+                <div class="mt-2">
+            <label for="description">Описание</label>
+        </div>
+        <div class="mt-2">
+            <textarea class="rounded border-gray-300 w-1/3 h-32" name="description" id="description">{{ $label->description }}</textarea>
         </div>
                 <div class="mt-2">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Обновить</button>
@@ -95,3 +100,4 @@
 
 
 </body></html>
+<!DOCTYPE html>

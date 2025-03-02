@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('label_task', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('task_id')->nullable()->constrained();
             $table->foreignId('label_id')->nullable()->constrained();
             $table->timestamps();
         });
@@ -25,5 +25,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('label_task');
+        Schema::dropIfExists('labels');
     }
 };

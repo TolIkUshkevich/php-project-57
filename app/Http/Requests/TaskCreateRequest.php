@@ -43,6 +43,10 @@ class TaskCreateRequest extends FormRequest
             'assigned_to_id' => [
                 'nullable',
                 Rule::exists(User::class, 'id')
+            ],
+            'labels' => [
+                'array',
+                'nullable'
             ]
         ];
     }

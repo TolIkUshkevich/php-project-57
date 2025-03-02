@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Status;
 use Illuminate\Validation\Rule;
+use App\Models\Label;
 
-class StatusEditRequest extends FormRequest
+class LabelCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,13 @@ class StatusEditRequest extends FormRequest
     {
         return [
             'name' => [
+                'string',
                 'required',
-                Rule::unique(Status::class)
+                'max:255',
+                Rule::unique(Label::class)
+            ],
+            'description' => [
+                'nullable'
             ]
         ];
     }

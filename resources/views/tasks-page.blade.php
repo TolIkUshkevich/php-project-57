@@ -14,7 +14,6 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
     <div id="app">
@@ -26,19 +25,20 @@
                     </a>
 
                     <div class="flex items-center lg:order-2">
-                        @if (Auth::check())
+                        @auth
                         <form method="post" action="/logout">
                             @csrf
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
                         </form>
-                        @else
+                        @endauth
+                        @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Вход
                         </a>
                         <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                                Регистрация
                         </a>
-                        @endif
+                        @endguest
                     </div>
 
                     <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
@@ -79,10 +79,10 @@
         </div>
 
         <div class="ml-auto">
-            @if (Auth::check())
+            @auth
                         <a href="/tasks/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                 Создать задачу            </a>
-            @endif
+            @endauth
         </div>
         </div>
 
@@ -110,23 +110,22 @@
                             <td>{{ $task->author->name }}</td>
                             <td>{{ $task->performer->name }}</td>
                             <td>{{ $task->created_at }}</td>
-                            @if(Auth::check())
+                            @auth
                                 <td>
-                                    @if(Auth::user()->id === $task->author->id)
-                                    @can('delete', $task)
-                                <a href="{{ route('tasks.destroy', ['task' => $task->id]) }}" 
-                                    data-confirm="{{__('trans.dataConfirm')}}" 
-                                    data-method="delete" 
-                                    rel="nofollow">
-                                            {{__('trans.delete')}}       
-                                </a>
-                            @endcan
-                                    @endif
-                                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('task.update.page', ['id' => $task->id]) }}">
+                                    @can('update', $task)
+                                    <form method="POST" action="{{ route('task.destroy', $task->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                 <button type="submit" class="text-red-600 hover:text-red-900">
+                        Удалить
+                    </button>
+                </form>
+                                @endcan
+                                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('task.update.page', $task->id) }}">
                                         Изменить
                                     </a>
                                 </td>
-                            @endif
+                            @endauth
                         </tr>
                         @endforeach
 
@@ -134,15 +133,6 @@
 
     <div class="mt-4">
         <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between">
-        <div class="flex justify-between flex-1 sm:hidden">
-                            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md dark:text-gray-600 dark:bg-gray-800 dark:border-gray-600">
-                    « Previous
-                </span>
-            
-                            <a href="/tasks?page={{ $page + 1 }}" class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:focus:border-blue-700 dark:active:bg-gray-700 dark:active:text-gray-300">
-                    Next »
-                </a>
-                    </div>
 
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div>
@@ -162,7 +152,7 @@
                     
                                             
                         
-                        
+                        @if (count($tasks) > 15)
                         <span class="relative z-0 inline-flex rtl:flex-row-reverse shadow-sm rounded-md">
                         @if ($page == 1)
                         <span aria-disabled="true" aria-label="&amp;laquo; Previous">
@@ -205,6 +195,7 @@
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                             </svg>
                         </a>
+                        @endif
                         @endif
             </span>
             </div>

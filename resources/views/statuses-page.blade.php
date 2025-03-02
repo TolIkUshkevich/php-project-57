@@ -26,19 +26,20 @@
                     </a>
 
                     <div class="flex items-center lg:order-2">
-                        @if (Auth::check())
+                        @auth
                         <form method="post" action="/logout">
                             @csrf
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
                         </form>
-                        @else
+                        @endauth
+                        @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Вход
                         </a>
                         <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                                Регистрация
                         </a>
-                        @endif
+                        @endguest
                     </div>
 
                     <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
@@ -88,20 +89,20 @@
                 <td style="color:#2861C3">{{ $status->id }}</td>
                 <td style="color:#2861C3">{{ $status->name }}</td>
                 <td style="color:#2861C3">{{ $status->created_at }}</td>
-                @if(Auth::check())
+                @auth
                 <td>
-                <form method="POST" action="{{ route('status.destroy', ['id' => $status->id]) }}" style="display: inline;">
+                <form method="POST" action="{{ route('status.destroy', $status->id) }}" style="display: inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-red-600 hover:text-red-900">
                         Удалить
                     </button>
                 </form>
-                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('status.update.page', ['id' => $status->id]) }}">
+                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('status.update.page', $status->id) }}">
                         Изменить
                     </a>
                 </td>
-                @endif
+                @endauth
             </tr>
             @endforeach
             </tbody></table>

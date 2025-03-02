@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Label;
 
 class PageController extends Controller
 {
@@ -36,10 +37,9 @@ class PageController extends Controller
         return view('status-create-page');
     }
 
-    public function showStatusEditPage(string $id)
+    public function showStatusUpdatePage(Status $status)
     {
-        $status = Status::find($id);
-        return view('status-edit-page', ['status' => $status]);
+        return view('status-update-page', ['status' => $status]);
     }
 
     public function showTasksPage(Request $request)
@@ -58,8 +58,9 @@ class PageController extends Controller
     public function showTaskCreatePage()
     {
         $statuses = Status::orderBy('id')->get();
+        $labels = Label::orderBy('id')->get();
         $users = User::orderBy('id')->get();
-        return view('task-create-page', ['statuses' => $statuses, 'users' => $users]);
+        return view('task-create-page', ['labels' => $labels, 'statuses' => $statuses, 'users' => $users]);
     }
 
     public function showTaskUpdatePage(string $id)
@@ -67,6 +68,24 @@ class PageController extends Controller
         $statuses = Status::orderBy('id')->get();
         $users = User::orderBy('id')->get();
         $task = Task::find($id);
-        return view('task-update-page', ['statuses' => $statuses, 'users' => $users, 'task' => $task]);
+        $labels = Label::orderBy('id')->get();
+        return view('task-update-page', ['labels' => $labels, 'statuses' => $statuses, 'users' => $users, 'task' => $task]);
+    }
+
+    public function showLabelsPage()
+    {
+        $labels = Label::orderBy('id')->get();
+        return view('labels-page', ['labels' => $labels]);
+    }
+
+    public function showLabelsCreatePage()
+    {
+        return view('label-create-page');
+    }
+
+    public function showLabelUpdatePage(string $id)
+    {
+        $label = Label::find($id);
+        return view('label-update-page', ['label' => $label]);
     }
 }

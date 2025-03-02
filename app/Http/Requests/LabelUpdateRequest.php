@@ -3,15 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Status;
 use Illuminate\Validation\Rule;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Models\Label;
 
-class StatusCreateRequest extends FormRequest
+class LabelUpdateRequest extends FormRequest
 {
-    // protected $redirectRoute = 'status.create';
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -27,12 +23,16 @@ class StatusCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $label = $this->route('label');
         return [
             'name' => [
-                'required',
                 'string',
+                'required',
                 'max:255',
-                Rule::unique(Status::class)
+                Rule::unique(Label::class)->ignore($label->id)
+            ],
+            'description' => [
+                'nullable'
             ]
         ];
     }

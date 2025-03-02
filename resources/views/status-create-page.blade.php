@@ -25,19 +25,20 @@
                     </a>
 
                     <div class="flex items-center lg:order-2">
-                        @if (Auth::check())
+                        @auth
                         <form method="post" action="/logout">
                             @csrf
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
                         </form>
-                        @else
+                        @endauth
+                        @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Вход
                         </a>
                         <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                                Регистрация
                         </a>
-                        @endif
+                        @endguest
                     </div>
                             <form id="logout-form" action="/logout" method="POST" style="display: none;">
                                 <input type="hidden" name="_token" value="XbwGNRtNblBtbc4MLCI2Kolv9JDmqtotoJnbg9Q0" autocomplete="off">
@@ -87,7 +88,6 @@
         <div class="mt-2">
             <input class="rounded border-gray-300 w-1/3" type="text" name="name" id="name" value="{{old('name')}}">
         </div>
-            <!-- <div class="text-rose-600">{{ session('error')['errorContent'] ?? '' }}</div> -->
                 <div class="mt-2">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Создать</button>
         </div>

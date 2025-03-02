@@ -24,19 +24,20 @@
                     </a>
 
                     <div class="flex items-center lg:order-2">
-                        @if (Auth::check())
+                        @auth
                         <form method="post" action="/logout">
                             @csrf
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
                         </form>
-                        @else
+                        @endauth
+                        @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Вход
                         </a>
                         <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                                Регистрация
                         </a>
-                        @endif
+                        @endguest
                     </div>
 
                     <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1">
@@ -113,7 +114,11 @@
             <label for="labels">Метки</label>
         </div>
         <div>
-            <select class="rounded border-gray-300 w-1/3 h-32" name="labels[]" id="labels" multiple=""><option value="1" selected="selected">ошибка</option><option value="2" selected="selected">документация</option><option value="3" selected="selected">дубликат</option><option value="4">доработка</option></select>
+            <select class="rounded border-gray-300 w-1/3 h-32" name="labels[]" id="labels" multiple="">
+                @foreach ($labels as $label)
+                    <option value="{{ $label->id }}" selected="selected">{{ $label->name }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="mt-2">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Обновить</button>

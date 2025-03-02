@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="wuNqy0P6TTzSdzkwsgo1NxUUjDCs8RDGN9ZLDJXS">
+    <meta name="csrf-token" content="iaAQPzMjPO6A51ZXYLn1RlEG4G83RClkHOutzBNl">
     <meta name="csrf-param" content="_token">
 
     <title>Менеджер задач</title>
@@ -18,12 +18,11 @@
 <body>
     <div id="app">
         <header class="fixed w-full">
-            <nav class="bg-white border-gray-200 py-2.5 shadow-md">
+            <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 shadow-md">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
-                    <a href="https://php-task-manager-ru.hexlet.app" class="flex items-center">
+                    <a href="/" class="flex items-center">
                         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Менеджер задач</span>
                     </a>
-
                     <div class="flex items-center lg:order-2">
                         @auth
                         <form method="post" action="/logout">
@@ -63,17 +62,55 @@
 
         <section class="bg-white">
             <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-                                    <div class="mr-auto place-self-center lg:col-span-7">
-        <h1 class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-            Привет от Хекслета!
-        </h1>
-        <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-            Это простой менеджер задач на Laravel        </p>
-        <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-            <a href="https://hexlet.io" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" target="_blank">
-                Нажми меня            </a>
+                                <div class="grid col-span-full">
+    <h1 class="mb-5">Метки</h1>
+    @include('flash::message')
+
+
+    <div class="ml-auto">
+            @auth
+                        <a href="{{ route('labels.create.page') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+
+                Создать метку            </a>
+            @endif
         </div>
-    </div>
+
+    <table class="mt-4">
+        <thead class="border-b-2 border-solid border-black text-left">
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Описание</th>
+                <th>Дата создания</th>
+            </tr>
+        </thead>
+                    <tbody>
+                        @foreach ($labels as $label)
+                            <tr class="border-b border-dashed text-left">
+                                <td>{{ $label->id }}</td>
+                                <td>{{ $label->name }}</td>
+                                <td>{{ $label->description }}</td>
+                                <td>{{ $label->created_at }}</td>
+                                @if(Auth::check())
+                <td>
+                <form method="POST" action="{{ route('label.destroy', $label->id) }}" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-red-600 hover:text-red-900">
+                        Удалить
+                    </button>
+                </form>
+                    <a class="text-blue-600 hover:text-blue-900" href="{{ route('label.update.page', $label->id) }}">
+                        Изменить
+                    </a>
+                </td>
+                @endif
+                            </tr>
+                        @endforeach
+            </tbody></table>
+
+    
+</div>
             </div>
         </section>
     </div>

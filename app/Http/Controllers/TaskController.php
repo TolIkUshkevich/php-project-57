@@ -12,23 +12,22 @@ class TaskController extends Controller
     public function create(TaskCreateRequest $request)
     {
         $validData = $request->validated();
-        Task::create($validData);
+        $task = Task::create($validData);
+        $task->labels()->attach($validData['labels']);
         return redirect()
             ->route('tasks.page');
     }
 
-    public function update(TaskUpdateRequest $request, string $id)
+    public function update(TaskUpdateRequest $request, Task $task)
     {
         $validData = $request->validated();
-        $task = Task::find($id);
         $task->update($validData);
         return redirect()
             ->route('tasks.page');
     }
 
-    public function destroy(Request $request, string $id)
+    public function destroy(Request $request, Task $task)
     {
-        $status = Task::find($id);
         $status->delete();
         return redirect()
             ->route('tasks.page');

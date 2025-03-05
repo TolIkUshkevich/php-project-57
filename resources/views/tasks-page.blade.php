@@ -68,11 +68,26 @@
 
     <div class="w-full flex items-center">
         <div>
-            <form method="GET" action="/tasks">
+            <form method="GET" action="{{ route('tasks.page') }}">
             <div class="flex">
-                <select class="rounded border-gray-300" name="filter[status_id]" id="filter[status_id]"><option value="" selected="selected">Статус</option><option value="1">новая</option><option value="2">завершена</option><option value="3">выполняется</option><option value="4">в архиве</option></select>
-                <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[created_by_id]"><option value="" selected="selected">Автор</option><option value="1">Комаров Игорь Александрович</option><option value="2">Герасим Фёдорович Вишняков</option><option value="3">Владлен Львович Евсеев</option><option value="4">Шубина Мария Андреевна</option><option value="5">Рогова Диана Владимировна</option><option value="6">Шарапова Елена Дмитриевна</option><option value="7">Петухов Марат Андреевич</option><option value="8">Потапова Тамара Евгеньевна</option><option value="9">Терентьев Гавриил Фёдорович</option><option value="10">Козлов Василий Алексеевич</option><option value="11">Нелли Владимировна Данилова</option><option value="12">Щукина Федосья Алексеевна</option><option value="13">Елена Алексеевна Щербакова</option><option value="14">Фаина Евгеньевна Ермакова</option><option value="15">Спартак Владимирович Маслов</option></select>
-                <select class="rounded border-gray-300" name="filter[assigned_to_id]" id="filter[assigned_to_id]"><option value="" selected="selected">Исполнитель</option><option value="1">Комаров Игорь Александрович</option><option value="2">Герасим Фёдорович Вишняков</option><option value="3">Владлен Львович Евсеев</option><option value="4">Шубина Мария Андреевна</option><option value="5">Рогова Диана Владимировна</option><option value="6">Шарапова Елена Дмитриевна</option><option value="7">Петухов Марат Андреевич</option><option value="8">Потапова Тамара Евгеньевна</option><option value="9">Терентьев Гавриил Фёдорович</option><option value="10">Козлов Василий Алексеевич</option><option value="11">Нелли Владимировна Данилова</option><option value="12">Щукина Федосья Алексеевна</option><option value="13">Елена Алексеевна Щербакова</option><option value="14">Фаина Евгеньевна Ермакова</option><option value="15">Спартак Владимирович Маслов</option></select>
+                <select class="rounded border-gray-300" name="filter[status_id]" id="filter[status_id]">
+                    <option value="" selected>Статус</option>
+                    @foreach ($statuses as $status)
+                        <option value="{{ $status->id }}" {{ request("filter.status_id") == $status->id ? "selected" : "" }}>{{ $status->name }}</option>
+                    @endforeach
+                </select>
+                <select class="rounded border-gray-300" name="filter[created_by_id]" id="filter[created_by_id]">
+                    <option value="" selected="selected">Автор</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}" {{ request("filter.created_by_id") == $user->id ? "selected" : "" }}>{{ $user->name }}</option>
+                    @endforeach
+                </select>
+                <select class="rounded border-gray-300" name="filter[assigned_to_id]" id="filter[assigned_to_id]">
+                    <option value="" selected="selected">Исполнитель</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}" {{ request("filter.assigned_to_id") == $user->id ? "selected" : "" }}>{{ $user->name }}</option>
+                    @endforeach
+                </select>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Применить</button>
                 
             </div></form>

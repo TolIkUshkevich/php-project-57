@@ -12,14 +12,14 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/', 'showMainPage')->name('main.page');
     Route::get('/task_statuses', 'showStatusesPage')->name('statuses.page');
     Route::get('/task_statuses/create', 'showStatusCreatePage')->name('status.create.page');
-    Route::get('/task_statuses/{status}/update', 'showStatusUpdatePage')->name('status.update.page');
+    Route::get('/task_statuses/{status}/edit', 'showStatusUpdatePage')->name('status.update.page');
     Route::get('/tasks', 'showTasksPage')->name('tasks.page');
     Route::get('/tasks/create', 'showTaskCreatePage')->name('task.create.page');
-    Route::get('/tasks/{task}/update', 'showTaskUpdatePage')->name('task.update.page');
+    Route::get('/tasks/{task}/edit', 'showTaskUpdatePage')->name('task.update.page');
     Route::get('/tasks/{task}', 'showTaskPage')->name('task.page');
     Route::get('/labels', 'showLabelsPage')->name('labels.page');
     Route::get('/labels/create', 'showLabelsCreatePage')->name('labels.create.page');
-    Route::get('/label/{label}/update', 'showLabelUpdatePage')->name('label.update.page');
+    Route::get('/label/{label}/edit', 'showLabelUpdatePage')->name('label.update.page');
 });
 
 Route::controller(StatusController::class)->group(function () {

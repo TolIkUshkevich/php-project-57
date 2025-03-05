@@ -8,6 +8,8 @@ use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Label;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class PageController extends Controller
 {
@@ -45,8 +47,17 @@ class PageController extends Controller
     public function showTasksPage(Request $request)
     {
         $page = $request->page ?? 1;
-        $tasks = Task::orderBy('id')->get();
-        return view('tasks-page', ['tasks' => $tasks, 'page' => $page]);
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters([
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::exact('created_by_id'),
+                AllowedFilter::exact('assigned_to_id')
+            ])
+            ->get();
+        $users = User::orderBy('id')->get();
+        $statuses = Status::orderBy('id')->get();
+        $selectedData = $request->query('filter') ?? [];
+        return view('tasks-page', ['tasks' => $tasks, 'page' => $page, 'statuses' => $statuses, 'users' => $users, ...$selectedData]);
     }
 
     public function showTaskPage(Request $request, string $id)

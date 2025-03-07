@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use App\Models\Status;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StatusTest extends TestCase
 {

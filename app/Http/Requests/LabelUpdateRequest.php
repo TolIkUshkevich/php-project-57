@@ -8,12 +8,13 @@ use App\Models\Label;
 
 class LabelUpdateRequest extends FormRequest
 {
+    protected $redirectRoute = 'label.update.page';
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user() and $this->user()->can('update', Label::class);;
     }
 
     /**

@@ -10,14 +10,14 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StatusCreateRequest extends FormRequest
 {
-    // protected $redirectRoute = 'status.create';
+    protected $redirectRoute = 'status.create.page';
 
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user() and $this->user()->can('create', Status::class);
     }
 
     /**
@@ -34,6 +34,16 @@ class StatusCreateRequest extends FormRequest
                 'max:255',
                 Rule::unique(Status::class)
             ]
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Это поле обязательно',
+            'name.string' => 'Это поле должно быть строкой',
+            'name.max' => 'The name must not be greater than 255 characters.',
+            'name.unique' => 'Статус с таким именем уже существует'
         ];
     }
 }

@@ -30,7 +30,7 @@ class StatusController extends Controller
             ->route('statuses.page');
     }
 
-    public function destroy(Request $request, Status $status)
+    public function destroy(StatusDestroyRequest $request, Status $status)
     {
         try {
             $status->delete();

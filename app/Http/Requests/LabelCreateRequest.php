@@ -8,12 +8,13 @@ use App\Models\Label;
 
 class LabelCreateRequest extends FormRequest
 {
+    protected $redirectRoute = 'label.create.page';
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user() and $this->user()->can('create', Label::class);;
     }
 
     /**

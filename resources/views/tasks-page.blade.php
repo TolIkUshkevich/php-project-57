@@ -94,10 +94,10 @@
         </div>
 
         <div class="ml-auto">
-            @auth
+            @can('create', App\Models\Task::class)
                         <a href="/tasks/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
                 Создать задачу            </a>
-            @endauth
+            @endcan
         </div>
         </div>
 
@@ -125,9 +125,8 @@
                             <td>{{ $task->author->name }}</td>
                             <td>{{ $task->performer->name }}</td>
                             <td>{{ $task->created_at }}</td>
-                            @auth
                                 <td>
-                                    @can('update', $task)
+                                    @can('destroy', $task)
                                     <form method="POST" action="{{ route('task.destroy', $task->id) }}" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
@@ -136,11 +135,12 @@
                     </button>
                 </form>
                                 @endcan
+                                @can('update', $task)
                                     <a class="text-blue-600 hover:text-blue-900" href="{{ route('task.update.page', $task->id) }}">
                                         Изменить
                                     </a>
                                 </td>
-                            @endauth
+                            @endcan
                         </tr>
                         @endforeach
 

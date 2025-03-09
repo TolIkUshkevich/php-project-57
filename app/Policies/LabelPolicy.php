@@ -3,16 +3,15 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Task;
 
-class TaskPolicy
+class LabelPolicy
 {
     /**
      * Create a new policy instance.
      */
     public function __construct()
     {
-        
+        //
     }
 
     public function create(User $user): bool
@@ -25,8 +24,8 @@ class TaskPolicy
         return $user != null;
     }
 
-    public function destroy(User $user, Task $task): bool
+    public function destroy(User $user): bool
     {
-        return $user->id === $task->created_by_id;
+        return $user != null;
     }
 }

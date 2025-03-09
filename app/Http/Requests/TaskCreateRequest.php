@@ -9,12 +9,13 @@ use Illuminate\Validation\Rule;
 
 class TaskCreateRequest extends FormRequest
 {
+    protected $redirectRoute = 'task.create.page';
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user() and $this->user()->can('create', Task::class);;
     }
 
     /**

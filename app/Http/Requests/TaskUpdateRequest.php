@@ -9,12 +9,13 @@ use App\Models\User;
 
 class TaskUpdateRequest extends FormRequest
 {
+    protected $redirectRoute = 'task.update.page';
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user() and $this->user()->can('update', Task::class);;
     }
 
     /**

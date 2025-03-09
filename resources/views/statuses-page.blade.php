@@ -89,7 +89,7 @@
                 <td style="color:#2861C3">{{ $status->id }}</td>
                 <td style="color:#2861C3">{{ $status->name }}</td>
                 <td style="color:#2861C3">{{ $status->created_at }}</td>
-                @auth
+                @can('destroy', $status)
                 <td>
                 <form method="POST" action="{{ route('status.destroy', $status->id) }}" style="display: inline;">
                     @csrf
@@ -98,11 +98,13 @@
                         Удалить
                     </button>
                 </form>
+                @endcan
+                @can('update', $status)
                     <a class="text-blue-600 hover:text-blue-900" href="{{ route('status.update.page', $status->id) }}">
                         Изменить
                     </a>
                 </td>
-                @endauth
+                @endcan
             </tr>
             @endforeach
             </tbody></table>

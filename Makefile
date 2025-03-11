@@ -18,3 +18,12 @@ test-coverage:
 
 test-coverage-text:
 	XDEBUG_MODE=coverage composer exec --verbose phpunit tests -- --coverage-text
+
+setup:
+	composer install
+	cp -n .env.example .env
+	php artisan key:gen --ansi
+	php artisan migrate
+	php artisan db:seed
+	npm ci
+	npm run build

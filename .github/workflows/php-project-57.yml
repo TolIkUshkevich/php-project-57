@@ -17,6 +17,8 @@ jobs:
         with:
           php-version: '8.3'
       - run: composer install
+      - name: setup application
+        run: make setup
       - name: Run tests
         run: make test
       - name: Publish linter results

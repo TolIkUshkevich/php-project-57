@@ -15,6 +15,7 @@ class TaskController extends Controller
         $validData['created_by_id'] = auth()->user()->id;
         $task = Task::create($validData);
         $task->labels()->attach(($validData['labels'] ?? []));
+        flash('Задача успешно создана')->success();
         return redirect()
             ->route('tasks.page');
     }
@@ -23,6 +24,7 @@ class TaskController extends Controller
     {
         $validData = $request->validated();
         $task->update($validData);
+        flash('Задача успешно изменена')->success();
         return redirect()
             ->route('tasks.page');
     }
@@ -30,6 +32,7 @@ class TaskController extends Controller
     public function destroy(Request $request, Task $task)
     {
         $task->delete();
+        flash('Задача успешно удалена')->success();
         return redirect()
             ->route('tasks.page');
     }

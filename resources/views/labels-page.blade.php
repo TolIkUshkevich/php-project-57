@@ -93,7 +93,7 @@
                                 <td>{{ $label->created_at }}</td>
                                 @if(Auth::check())
                 <td>
-                <a href="{{ route('labels.destroy', $label->id) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Удалить</a>
+                <a href="{{ route('label.destroy', $label->id) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Удалить</a>
 
                     <a class="text-blue-600 hover:text-blue-900" href="{{ route('label.update.page', $label->id) }}">
                         Изменить

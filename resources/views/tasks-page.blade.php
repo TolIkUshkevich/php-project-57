@@ -129,7 +129,7 @@
                             <td>{{ $task->created_at->format('d.m.Y') }}</td>
                                 <td>
                                     @can('destroy', $task)
-                                    <a href="{{ route('tasks.destroy', $task->id) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Удалить</a>
+                                    <a href="{{ route('task.destroy', $task->id) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Удалить</a>
                                 @endcan
                                 @can('update', $task)
                                     <a class="text-blue-600 hover:text-blue-900" href="{{ route('task.update.page', $task->id) }}">

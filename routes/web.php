@@ -19,7 +19,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/tasks/{task}', 'showTaskPage')->name('task.page');
     Route::get('/labels', 'showLabelsPage')->name('labels.page');
     Route::get('/labels/create', 'showLabelsCreatePage')->name('labels.create.page');
-    Route::get('/label/{label}/edit', 'showLabelUpdatePage')->name('label.update.page');
+    Route::get('/labels/{label}/edit', 'showLabelUpdatePage')->name('label.update.page');
 });
 
 Route::controller(StatusController::class)->group(function () {

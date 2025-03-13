@@ -5,7 +5,7 @@ load:
 	composer dump-autoload
 
 lint:
-	composer exec --verbose phpcs -- --standard=PSR12 src tests parsers
+	composer exec --verbose phpcs -- --standard=PSR12
 
 lint-fix:
 	composer exec --verbose phpcbf -- --standard=PSR12 src tests

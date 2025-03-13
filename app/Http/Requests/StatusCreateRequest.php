@@ -40,7 +40,7 @@ class StatusCreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Это поле обязательно',
+            'name.required' => 'Это обязательное поле',
             'name.string' => 'Это поле должно быть строкой',
             'name.max' => 'The name must not be greater than 255 characters.',
             'name.unique' => 'Статус с таким именем уже существует'

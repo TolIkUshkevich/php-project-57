@@ -27,8 +27,20 @@ class StatusUpdateRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'string',
+                'max:255',
                 Rule::unique(Status::class)
             ]
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Это обязательное поле',
+            'name.string' => 'Это поле должно быть строкой',
+            'name.max' => 'The name must not be greater than 255 characters.',
+            'name.unique' => 'Статус с таким именем уже существует'
         ];
     }
 }

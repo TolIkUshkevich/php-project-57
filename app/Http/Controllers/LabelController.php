@@ -31,6 +31,7 @@ class LabelController extends Controller
     {
         try {
             $label->delete();
+            flash('Метка успешно удалена')->success();
         } catch (\Illuminate\Database\QueryException) {
             flash('Не удалось удалить метку')->error();
         }

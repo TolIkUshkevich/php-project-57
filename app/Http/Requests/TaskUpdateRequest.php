@@ -42,7 +42,7 @@ class TaskUpdateRequest extends FormRequest
             ],
             'assigned_to_id' => [
                 'nullable',
-                Rule::exists(User::class)
+                Rule::exists(User::class, 'id')
             ]
         ];
     }

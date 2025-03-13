@@ -8,7 +8,7 @@ use App\Models\Label;
 
 class LabelCreateRequest extends FormRequest
 {
-    protected $redirectRoute = 'label.create.page';
+    protected $redirectRoute = 'labels.create.page';
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -34,6 +34,16 @@ class LabelCreateRequest extends FormRequest
             'description' => [
                 'nullable'
             ]
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Это обязательное поле',
+            'name.string' => 'Это поле должно быть строкой',
+            'name.max' => 'The name must not be greater than 255 characters.',
+            'name.unique' => 'Метка с таким именем уже существует'
         ];
     }
 }

@@ -35,7 +35,7 @@ Route::controller(TaskController::class)->group(function () {
 });
 
 Route::controller(LabelController::class)->group(function () {
-    Route::post('/labels/create', 'create')->name('label.create');
+    Route::post('/labels', 'create')->name('label.create');
     Route::patch('/labels/{label}', 'update')->name('label.update');
     Route::delete('/labels/{label}', 'destroy')->name('label.destroy');
 });

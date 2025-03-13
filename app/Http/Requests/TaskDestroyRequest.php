@@ -3,16 +3,18 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Task;
 
-class StatusDestroyRequest extends FormRequest
+class TaskDestroyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return $this->user();
+        return $this->user() and $this->user()->can('desatroy', Task::class);
     }
+
     /**
      * Get the validation rules that apply to the request.
      *

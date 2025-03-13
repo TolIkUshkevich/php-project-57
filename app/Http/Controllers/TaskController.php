@@ -12,6 +12,7 @@ class TaskController extends Controller
     public function create(TaskCreateRequest $request)
     {
         $validData = $request->validated();
+        $validData['created_by_id'] = Auth::user()->id;
         $task = Task::create($validData);
         $task->labels()->attach(($validData['labels'] ?? []));
         return redirect()
@@ -28,7 +29,7 @@ class TaskController extends Controller
 
     public function destroy(Request $request, Task $task)
     {
-        $status->delete();
+        $task->delete();
         return redirect()
             ->route('tasks.page');
     }

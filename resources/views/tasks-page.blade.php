@@ -66,6 +66,9 @@
                                 <div class="grid col-span-full">
     <h1 class="mb-5">Задачи</h1>
 
+    @include('flash::message')
+
+
     <div class="w-full flex items-center">
         <div>
             <form method="GET" action="{{ route('tasks.page') }}">

@@ -13,7 +13,7 @@ class TaskController extends Controller
     {
         $validData = $request->validated();
         $task = Task::create($validData);
-        $task->labels()->attach($validData['labels']);
+        $task->labels()->attach(($validData['labels'] ?? []));
         return redirect()
             ->route('tasks.page');
     }

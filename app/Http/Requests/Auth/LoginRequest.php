@@ -39,10 +39,10 @@ class LoginRequest extends FormRequest
         return [
             'email.required' => 'Это поле обязательно',
             'email.string' => 'Это поле должно быть строкой',
-            'email.email' => 'Это поле должно быть строкой',
-            'email.exists' => 'Это поле должно быть строкой',
+            'email.email' => 'Это поле должно быть формата Email',
+            'email.exists' => 'Введите правильные имя пользователя и пароль',
             'password.max' => 'The name must not be greater than 255 characters.',
-            'password.string' => 'Статус с таким именем уже существует'
+            'password.string' => 'Пароль должен быть строкой'
         ];
     }
 

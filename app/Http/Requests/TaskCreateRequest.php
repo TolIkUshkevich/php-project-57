@@ -39,7 +39,7 @@ class TaskCreateRequest extends FormRequest
                 'required'
             ],
             'created_by_id' => [
-                'required'
+                'nullable'
             ],
             'assigned_to_id' => [
                 'nullable',

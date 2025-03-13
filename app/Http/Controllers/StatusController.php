@@ -25,7 +25,7 @@ class StatusController extends Controller
         $name = $request->validated()['name'];
         $status->name = $name;
         $status->save();
-        flash('Статус успешно обновлен')->success();
+        flash('Статус успешно изменён')->success();
         return redirect()
             ->route('statuses.page');
     }

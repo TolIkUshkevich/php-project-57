@@ -17,11 +17,6 @@ class Label extends Model
         'description'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime:d.m.Y',
-        'updated_at' => 'datetime:d.m.Y',
-    ];
-
     public function tasks(): BelongsToMany
     {
         return $this->belongsToMany(Task::class);

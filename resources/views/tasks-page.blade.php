@@ -124,7 +124,7 @@
                             </td>
                             <td>{{ $task->author->name }}</td>
                             <td>{{ $task->performer->name }}</td>
-                            <td>{{ $task->created_at }}</td>
+                            <td>{{ $task->created_at->format('d.m.Y') }}</td>
                                 <td>
                                     @can('destroy', $task)
                                     <form method="POST" action="{{ route('task.destroy', $task->id) }}" style="display: inline;">

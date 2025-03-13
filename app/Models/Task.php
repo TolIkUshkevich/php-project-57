@@ -24,11 +24,6 @@ class Task extends Model
         'assigned_to_id'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime:d.m.Y',
-        'updated_at' => 'datetime:d.m.Y',
-    ];
-
     public function status(): HasOne
     {
         return $this->hasOne(Status::class, 'id', 'status_id');

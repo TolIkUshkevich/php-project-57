@@ -17,11 +17,6 @@ class Status extends Model
         'name'
     ];
 
-    protected $casts = [
-        'created_at' => 'datetime:d.m.Y',
-        'updated_at' => 'datetime:d.m.Y',
-    ];
-
     public function tasks(): BelongsTo
     {
         return $this->belongsTo(Task::class);

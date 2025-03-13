@@ -38,12 +38,11 @@ class RegisterRequest extends FormRequest
             'name.max' => 'Поле "Имя" не должно превышать 255 символов.',
             'email.required' => 'Поле "Email" обязательно для заполнения.',
             'email.string' => 'Поле "Email" должно быть строкой.',
-            'email.lowercase' => 'Поле "Email" должно содержать только символы в нижнем регистре.',
             'email.email' => 'Поле "Email" должно содержать корректный адрес электронной почты.',
             'email.max' => 'Поле "Email" не должно превышать 255 символов.',
-            'email.unique' => 'Пользователь с таким email уже существует.',
+            'email.unique' => 'The email has already been taken.',
             'password.required' => 'Поле "Пароль" обязательно для заполнения.',
-            'password.confirmed' => 'Пароли не совпадают.',
+            'password.confirmed' => 'Пароль и подтверждение не совпадают',
             'password.min' => 'Пароль должен иметь длину не менее 8 символов'
         ];
     }

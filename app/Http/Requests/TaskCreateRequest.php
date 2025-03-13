@@ -51,4 +51,15 @@ class TaskCreateRequest extends FormRequest
             ]
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Это обязательное поле',
+            'status_id.required' => 'Это обязательное поле',
+            'name.string' => 'Это поле должно быть строкой',
+            'name.max' => 'The name must not be greater than 255 characters.',
+            'name.unique' => 'Задача с таким именем уже существует'
+        ];
+    }
 }

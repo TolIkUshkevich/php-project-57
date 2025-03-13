@@ -25,7 +25,7 @@ class StatusTest extends TestCase
     {
         $response = $this->actingAs($this->user)
             ->post(route('status.create'), ['name' => 'status2']);
-        
+
         $response->assertStatus(302);
         $response->assertRedirect('/task_statuses');
         $this->assertDatabaseHas('statuses', [
@@ -38,7 +38,7 @@ class StatusTest extends TestCase
         $response = $this->actingAs($this->user)
             ->followingRedirects()
             ->post(route('status.create'), ['name' => 'status2']);
-        
+
         $response->assertSee('Статус успешно создан');
         $response->assertSee('4');
         $response->assertSee('status2');
@@ -89,7 +89,7 @@ class StatusTest extends TestCase
         $response = $this->actingAs($this->user)
             ->followingRedirects()
             ->post(route('status.update', ['status' => $this->status]), ['name' => 'status2']);
-        
+
         $response->assertSee('Статус успешно обновлен');
         $response->assertSee('9');
         $response->assertSee('status2');
@@ -98,7 +98,7 @@ class StatusTest extends TestCase
     public function testValidStatusUpdateWhileGuest(): void
     {
         $response = $this->patch(route('status.update', ['status' => $this->status]), ['name' => 'status2']);
-        
+
         $response->assertForbidden();
         $this->assertDatabaseMissing('statuses', ['name' => 'status2']);
     }

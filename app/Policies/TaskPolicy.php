@@ -12,7 +12,7 @@ class TaskPolicy
      */
     public function __construct()
     {
-        
+        //
     }
 
     public function create(User $user): bool

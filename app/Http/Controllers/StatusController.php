@@ -21,7 +21,7 @@ class StatusController extends Controller
     }
 
     public function update(StatusUpdateRequest $request, Status $status)
-    {   
+    {
         $name = $request->validated()['name'];
         $status->name = $name;
         $status->save();

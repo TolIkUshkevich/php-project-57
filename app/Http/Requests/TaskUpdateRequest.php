@@ -15,7 +15,7 @@ class TaskUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user() and $this->user()->can('update', Task::class);;
+        return $this->user() and $this->user()->can('update', Task::class);
     }
 
     /**

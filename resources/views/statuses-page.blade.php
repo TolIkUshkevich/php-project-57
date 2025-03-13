@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- CSRF Token -->
-    <meta name="csrf-token" content="GtAnPZl9b8c1tjyIvS6hC7bfbhclbe0jzXvbZzKf">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token">
 
     <title>Менеджер задач</title>
@@ -15,6 +15,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
@@ -27,10 +28,9 @@
 
                     <div class="flex items-center lg:order-2">
                         @auth
-                        <form method="post" action="/logout">
-                            @csrf
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
-                        </form>
+                        <a href="/logout" data-method="post" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                                Выход
+                            </a>
                         @endauth
                         @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -91,13 +91,14 @@
                 <td style="color:#2861C3">{{ $status->created_at }}</td>
                 @can('destroy', $status)
                 <td>
-                <form method="POST" action="{{ route('status.destroy', $status->id) }}" style="display: inline;">
+                <a href="{{ route('status.destroy', $status->id) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Удалить</a>
+                <!-- <form method="POST" action="{{ route('status.destroy', $status->id) }}" style="display: inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-red-600 hover:text-red-900">
                         Удалить
                     </button>
-                </form>
+                </form> -->
                 @endcan
                 @can('update', $status)
                     <a class="text-blue-600 hover:text-blue-900" href="{{ route('status.update.page', $status->id) }}">

@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="pgxAZY6IVH1vWcT6mW7AHe4b4siHqAEEP2km7jyv">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token">
 
     <title>Менеджер задач</title>
@@ -13,6 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
@@ -24,10 +25,9 @@
                     </a>
                     <div class="flex items-center lg:order-2">
                         @auth
-                        <form method="post" action="/logout">
-                            @csrf
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
-                        </form>
+                        <a href="/logout" data-method="post" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                                Выход
+                            </a>
                         @endauth
                         @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

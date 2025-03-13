@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="QBgufX5RVQYSHAyIdoNyJwalRrMnBS8aP7sCSC8L">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token">
 
     <title>Менеджер задач</title>
@@ -26,10 +26,9 @@
 
                     <div class="flex items-center lg:order-2">
                         @auth
-                        <form method="post" action="/logout">
-                            @csrf
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" type="submit">Выход</button>
-                        </form>
+                        <a href="/logout" data-method="post" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">
+                                Выход
+                            </a>
                         @endauth
                         @guest
                         <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -130,13 +129,7 @@
                             <td>{{ $task->created_at->format('d.m.Y') }}</td>
                                 <td>
                                     @can('destroy', $task)
-                                    <form method="POST" action="{{ route('task.destroy', $task->id) }}" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                 <button type="submit" class="text-red-600 hover:text-red-900">
-                        Удалить
-                    </button>
-                </form>
+                                    <a href="{{ route('tasks.destroy', $task->id) }}" data-confirm="Вы уверены?" data-method="delete" rel="nofollow">Удалить</a>
                                 @endcan
                                 @can('update', $task)
                                     <a class="text-blue-600 hover:text-blue-900" href="{{ route('task.update.page', $task->id) }}">

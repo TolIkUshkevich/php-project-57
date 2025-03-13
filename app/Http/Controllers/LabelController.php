@@ -22,7 +22,7 @@ class LabelController extends Controller
     {
         $validData = $request->validated();
         $label->update($validData);
-        flash('Метка успешно обновлена')->success();
+        flash('Метка успешно изменена')->success();
         return redirect()
             ->route('labels.page');
     }

@@ -56,7 +56,8 @@ class PageController extends Controller
             ->get();
         $users = User::orderBy('id')->get();
         $statuses = Status::orderBy('id')->get();
-        $selectedData = $request->query('filter') ?? [];
+        /** @var array $selectedData */
+        $selectedData = $request->query('filter') ? [$request->query('filter')] : [];
         return view('tasks-page', ['tasks' => $tasks, 'page' => $page, 'statuses' => $statuses, 'users' => $users, ...$selectedData]);
     }
 

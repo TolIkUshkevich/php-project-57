@@ -12,7 +12,7 @@ class TaskController extends Controller
     public function create(TaskCreateRequest $request)
     {
         $validData = $request->validated();
-        $validData['created_by_id'] = auth()->user()->id;
+        $validData['created_by_id'] = auth()->user()?->id;
         $task = Task::create($validData);
         $task->labels()->attach(($validData['labels'] ?? []));
         flash('Задача успешно создана')->success();

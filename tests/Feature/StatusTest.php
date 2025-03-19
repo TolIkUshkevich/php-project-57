@@ -12,6 +12,9 @@ class StatusTest extends TestCase
 {
     use RefreshDatabase;
 
+    public Status $status;
+    public User $user;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -134,11 +137,11 @@ class StatusTest extends TestCase
 
     public function testDeleteTaskRelatedStatus(): void
     {
-        $this->realetedStatus = Status::create(['name' => 'realeted status']);
-        $this->task = Task::create(['name' => 'task1', 'status_id' => $this->realetedStatus->id]);
+        $realetedStatus = Status::create(['name' => 'realeted status']);
+        $task = Task::create(['name' => 'task1', 'status_id' => $realetedStatus->id]);
         $response = $this->actingAs($this->user)
             ->followingRedirects()
-            ->delete(route('status.destroy', ['status' => $this->realetedStatus]));
+            ->delete(route('status.destroy', ['status' => $realetedStatus]));
 
         $response->assertSee('realeted status');
         $response->assertSee('Не удалось удалить статус');

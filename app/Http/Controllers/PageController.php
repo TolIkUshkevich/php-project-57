@@ -58,7 +58,13 @@ class PageController extends Controller
         $statuses = Status::orderBy('id')->get();
         /** @var array $selectedData */
         $selectedData = $request->query('filter') ?? [];
-        return view('tasks-page', ['tasks' => $tasks, 'page' => $page, 'statuses' => $statuses, 'users' => $users, ...$selectedData]);
+        return view('tasks-page', [
+            'tasks' => $tasks,
+            'page' => $page,
+            'statuses' => $statuses,
+            'users' => $users,
+            ...$selectedData
+        ]);
     }
 
     public function showTaskPage(Request $request, string $id)
@@ -81,7 +87,12 @@ class PageController extends Controller
         $users = User::orderBy('id')->get();
         $task = Task::find($id);
         $labels = Label::orderBy('id')->get();
-        return view('task-update-page', ['labels' => $labels, 'statuses' => $statuses, 'users' => $users, 'task' => $task]);
+        return view('task-update-page', [
+            'labels' => $labels,
+            'statuses' => $statuses,
+            'users' => $users,
+            'task' => $task
+        ]);
     }
 
     public function showLabelsPage()

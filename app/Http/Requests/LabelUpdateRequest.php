@@ -24,7 +24,7 @@ class LabelUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $label = $this->route('label');
+        $label = $this?->route('label');
         return [
             'name' => [
                 'string',

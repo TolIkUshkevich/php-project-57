@@ -25,7 +25,7 @@ class TaskUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $task = $this->route('task');
+        $task = $this?->route('task');
         return [
             'name' => [
                 'required',

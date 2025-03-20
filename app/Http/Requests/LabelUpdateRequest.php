@@ -31,7 +31,7 @@ class LabelUpdateRequest extends FormRequest
                 'string',
                 'required',
                 'max:255',
-                Rule::unique(Label::class)->ignore($label?->id)
+                Rule::unique(Label::class)->ignore($label->id)
             ],
             'description' => [
                 'nullable'

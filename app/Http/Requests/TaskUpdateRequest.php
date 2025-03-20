@@ -32,7 +32,7 @@ class TaskUpdateRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(Task::class)->ignore($task?->id)
+                Rule::unique(Task::class)->ignore($task->id)
             ],
             'description' => [
                 'nullable',

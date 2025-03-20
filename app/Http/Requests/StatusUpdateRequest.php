@@ -14,7 +14,7 @@ class StatusUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user() and $this->user()->can('update', Status::class);
+        return (bool)$this->user() && $this->user()->can('update', Status::class);
     }
 
     /**

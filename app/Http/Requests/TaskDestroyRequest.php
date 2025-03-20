@@ -12,7 +12,7 @@ class TaskDestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user() and $this->user()->can('desatroy', Task::class);
+        return (bool)$this->user() && $this->user()->can('desatroy', Task::class);
     }
 
     /**

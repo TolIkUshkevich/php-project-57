@@ -15,7 +15,7 @@ class TaskCreateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user() and $this->user()->can('create', Task::class);
+        return (bool)$this->user() && $this->user()->can('create', Task::class);
     }
 
     /**

@@ -11,7 +11,7 @@ class StatusDestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user() != null;
+        return (bool)$this->user();
     }
     /**
      * Get the validation rules that apply to the request.

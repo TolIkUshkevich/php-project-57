@@ -24,8 +24,12 @@ class TaskTest extends TestCase
         $this->status = Status::create(['name' => 'status1']);
 
         $this->user = User::factory()->create();
-        
-        $this->task = Task::create(['name' => 'task1', 'status_id' => $this->status->id, 'created_by_id' => $this->user->id]);
+
+        $this->task = Task::create([
+            'name' => 'task1',
+            'status_id' => $this->status->id,
+            'created_by_id' => $this->user->id
+        ]);
 
         $this->assigned_to_user = User::factory()->create();
     }

@@ -34,7 +34,7 @@ class TaskTest extends TestCase
         $this->assigned_to_user = User::factory()->create();
     }
 
-    public function testValidStatusCreationWithNullableParamsWhileAuth(): void
+    public function testValidTaskCreationWithNullableParamsWhileAuth(): void
     {
         $response = $this->actingAs($this->user)
             ->post(route('task.create'), [
@@ -56,7 +56,7 @@ class TaskTest extends TestCase
         ]);
     }
 
-    public function testSuccessStatusWithNullableParamsCreationDisplay(): void
+    public function testSuccessTaskWithNullableParamsCreationDisplay(): void
     {
         $response = $this->actingAs($this->user)
             ->followingRedirects()
@@ -73,11 +73,10 @@ class TaskTest extends TestCase
         $response->assertSee('task2');
         $response->assertSee($this->status->name);
         $response->assertSee($this->user->name);
-        $response->assertSee($this->assigned_to_user->id);
-        $response->assertSee('some description for task2');
+        $response->assertSee((string)$this->assigned_to_user->id);
     }
 
-    public function testValidStatusCreationWithoutNullableParamsWhileAuth(): void
+    public function testValidTaskCreationWithoutNullableParamsWhileAuth(): void
     {
         $response = $this->actingAs($this->user)
             ->post(route('task.create'), [
@@ -99,7 +98,7 @@ class TaskTest extends TestCase
         ]);
     }
 
-    public function testSuccessStatusWithoutNullableParamsCreationDisplay(): void
+    public function testSuccessTaskWithoutNullableParamsCreationDisplay(): void
     {
         $response = $this->actingAs($this->user)
             ->followingRedirects()

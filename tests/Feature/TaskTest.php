@@ -69,14 +69,12 @@ class TaskTest extends TestCase
             ]);
 
         $response->assertSee('Задача успешно создана');
-        $response->assertSee(
-            '4',
-            'task2',
-            $this->status->name,
-            $this->user->name,
-            $this->assigned_to_user->id,
-            'some description for task2'
-        );
+        $response->assertSee('4');
+        $response->assertSee('task2');
+        $response->assertSee($this->status->name);
+        $response->assertSee($this->user->name);
+        $response->assertSee($this->assigned_to_user->id);
+        $response->assertSee('some description for task2');
     }
 
     public function testValidStatusCreationWithoutNullableParamsWhileAuth(): void
@@ -112,12 +110,10 @@ class TaskTest extends TestCase
             ]);
 
         $response->assertSee('Задача успешно создана');
-        $response->assertSee(
-            '4',
-            'task2',
-            $this->status->name,
-            $this->user->name
-        );
+        $response->assertSee('4');
+        $response->assertSee('task2');
+        $response->assertSee($this->status->name);
+        $response->assertSee($this->user->name);
     }
 
     public function testTaskCreationWhileGuest(): void
@@ -185,12 +181,10 @@ class TaskTest extends TestCase
             ]);
 
         $response->assertSee('Задача успешно изменена');
-        $response->assertSee(
-            '9',
-            'task2',
-            $this->status->name,
-            $this->user->name,
-        );
+        $response->assertSee('9');
+        $response->assertSee('task2');
+        $response->assertSee($this->status->name);
+        $response->assertSee($this->user->name);
     }
 
     public function testValidStatusUpdateWhileGuest(): void

@@ -27,6 +27,6 @@ class TaskPolicy
 
     public function destroy(User $user, Task $task): bool
     {
-        return $user->id === $task->created_by_id;
+        return $user != null && $user->id === $task->created_by_id;
     }
 }

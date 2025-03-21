@@ -91,9 +91,8 @@ class StatusTest extends TestCase
     {
         $response = $this->actingAs($this->user)
             ->followingRedirects()
-            ->post(route('status.update', ['status' => $this->status]), ['name' => 'status2']);
-
-        $response->assertSee('Статус успешно обновлен');
+            ->patch(route('status.update', ['status' => $this->status]), ['name' => 'status2']);
+        $response->assertSee('Статус успешно изменён');
         $response->assertSee('9');
         $response->assertSee('status2');
     }

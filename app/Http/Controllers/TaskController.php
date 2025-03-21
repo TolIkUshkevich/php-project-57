@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskCreateRequest;
 use App\Http\Requests\TaskUpdateRequest;
+use App\Http\Requests\TaskDestroyRequest;
 use App\Models\Task;
 
 class TaskController extends Controller
@@ -29,7 +30,7 @@ class TaskController extends Controller
             ->route('tasks.page');
     }
 
-    public function destroy(Request $request, Task $task)
+    public function destroy(TaskDestroyRequest $request, Task $task)
     {
         $task->delete();
         flash('Задача успешно удалена')->success();

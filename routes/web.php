@@ -9,7 +9,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\LabelController;
 
 Route::get('/', function() {
-    return view('showMainPage');
+    return view('main-page');
 })->name('main.page');
 
 Route::controller(StatusController::class)->group(function () {

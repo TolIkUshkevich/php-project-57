@@ -8,7 +8,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\LabelController;
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('main-page');
 })->name('main.page');
 

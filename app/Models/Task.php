@@ -12,8 +12,6 @@ use App\Models\User;
 
 class Task extends Model
 {
-    protected $primaryKey = 'id';
-
     protected $fillable = [
         'name',
         'description',

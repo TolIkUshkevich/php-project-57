@@ -10,7 +10,27 @@ use App\Models\Status;
 
 class StatusController extends Controller
 {
-    public function create(StatusCreateRequest $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $statuses = Status::orderBy('id')->get();
+        return view('statuses-page', ['statuses' => $statuses]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('status-create-page');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StatusCreateRequest $request)
     {
         $validData = $request->validated();
         $name = $validData['name'];
@@ -20,16 +40,28 @@ class StatusController extends Controller
             ->route('statuses.page');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Status $status)
+    {
+        return view('status-update-page', ['status' => $status]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(StatusUpdateRequest $request, Status $status)
     {
-        $name = $request->validated()['name'];
-        $status->name = $name;
-        $status->save();
+        $status->update($request->validated());
         flash('Статус успешно изменён')->success();
         return redirect()
             ->route('statuses.page');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(StatusDestroyRequest $request, Status $status)
     {
         try {

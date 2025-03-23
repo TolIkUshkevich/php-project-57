@@ -9,24 +9,56 @@ use App\Http\Requests\LabelUpdateRequest;
 
 class LabelController extends Controller
 {
-    public function create(LabelCreateRequest $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $validData = $request->validated();
-        Label::create($validData);
+        $labels = Label::orderBy('id')->get();
+        return view('labels-page', ['labels' => $labels]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('label-create-page');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(LabelCreateRequest $request)
+    {
+        Label::create($request->validated());
         flash('Метка успешно создана')->success();
         return redirect()
             ->route('labels.page');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Label $label)
+    {
+        return view('label-update-page', ['label' => $label]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(LabelUpdateRequest $request, Label $label)
     {
-        $validData = $request->validated();
-        $label->update($validData);
+        $label->update($request->validated());
         flash('Метка успешно изменена')->success();
         return redirect()
             ->route('labels.page');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Request $request, Label $label)
     {
         try {

@@ -12,8 +12,6 @@ use App\Models\User;
 
 class Task extends Model
 {
-    protected $table = 'tasks';
-
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -48,10 +46,5 @@ class Task extends Model
     public function labels(): BelongsToMany
     {
         return $this->belongsToMany(Label::class);
-            // ->withDefault(function (){
-            //     return new Label([
-            //         'name' => ''
-            //     ]);
-            // });
     }
 }

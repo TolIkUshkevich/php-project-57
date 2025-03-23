@@ -8,7 +8,6 @@ use App\Models\Task;
 
 class Status extends Model
 {
-    protected $table = 'statuses';
     protected $primaryKey = 'id';
     protected $fillable = [
         'name'

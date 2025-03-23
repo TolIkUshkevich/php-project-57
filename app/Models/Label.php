@@ -8,8 +8,6 @@ use App\Models\Task;
 
 class Label extends Model
 {
-    protected $table = 'labels';
-
     protected $primaryKey = 'id';
 
     protected $fillable = [

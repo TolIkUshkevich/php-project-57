@@ -3,17 +3,18 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Label;
 
-class StatusDestroyRequest extends FormRequest
+class LabelDeleteRquest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $status = $this->route('status');
-        return (bool)$this->user()?->can('destroy', $status);
+        return (bool)$this->user()?->can('destroy', Label::class);
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,6 +23,7 @@ class StatusDestroyRequest extends FormRequest
     public function rules(): array
     {
         return [
+            //
         ];
     }
 }

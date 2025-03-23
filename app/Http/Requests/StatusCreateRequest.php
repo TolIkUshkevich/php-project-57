@@ -17,7 +17,7 @@ class StatusCreateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (bool)$this->user() && $this->user()->can('create', Status::class);
+        return (bool)$this->user()?->can('create', Status::class);
     }
 
     /**

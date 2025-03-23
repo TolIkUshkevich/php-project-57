@@ -14,7 +14,7 @@ class LabelUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (bool)$this->user() && $this->user()->can('update', Label::class);
+        return (bool)$this->user()?->can('update', Label::class);
     }
 
     /**

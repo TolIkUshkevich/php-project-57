@@ -91,7 +91,10 @@ class LabelTest extends TestCase
     public function testValidLabelUpdateWithSameNameWhileAuth(): void
     {
         $response = $this->actingAs($this->user)
-            ->patch(route('label.update', ['label' => $this->label]), ['name' => 'label1', 'description' => 'new description']);
+            ->patch(route('label.update', ['label' => $this->label]), [
+                'name' => 'label1',
+                'description' => 'new description'
+            ]);
         $response->assertStatus(302);
         $response->assertRedirect('/labels');
         $this->assertDatabaseCount('labels', 1);

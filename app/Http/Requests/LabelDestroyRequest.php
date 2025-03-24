@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Label;
 
-class LabelDeleteRquest extends FormRequest
+class LabelDestroyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Label;
 use App\Http\Requests\LabelCreateRequest;
 use App\Http\Requests\LabelUpdateRequest;
+use App\Http\Requests\LabelDestroyRequest;
 
 class LabelController extends Controller
 {
@@ -59,7 +60,7 @@ class LabelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Label $label)
+    public function destroy(LabelDestroyRequest $request, Label $label)
     {
         try {
             $label->delete();

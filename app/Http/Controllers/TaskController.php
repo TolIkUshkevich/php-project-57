@@ -96,7 +96,9 @@ class TaskController extends Controller
      */
     public function update(TaskUpdateRequest $request, Task $task)
     {
-        $task->update($request->validated());
+        $validData = $request->validated();
+        $task->update($validData);
+        $task->labels()->attach($validData['labels'] ?? []);
         flash('Задача успешно изменена')->success();
         return redirect()
             ->route('tasks.page');

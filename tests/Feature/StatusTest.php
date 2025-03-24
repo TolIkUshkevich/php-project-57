@@ -24,14 +24,6 @@ class StatusTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function testValidStatusCreationWhileGuest(): void
-    {
-        $response = $this->post(route('status.create'), ['name' => 'status2']);
-
-        $response->assertForbidden();
-        $this->assertDatabaseMissing('statuses', ['name' => 'status2']);
-    }
-
     public function testValidStatusCreationWhileAuth(): void
     {
         $response = $this->actingAs($this->user)
@@ -53,6 +45,14 @@ class StatusTest extends TestCase
         $response->assertSee('Статус успешно создан');
         $response->assertSee('4');
         $response->assertSee('status2');
+    }
+
+    public function testValidStatusCreationWhileGuest(): void
+    {
+        $response = $this->post(route('status.create'), ['name' => 'status2']);
+
+        $response->assertForbidden();
+        $this->assertDatabaseMissing('statuses', ['name' => 'status2']);
     }
 
     public function testNonValidStatusCreation(): void

@@ -138,7 +138,7 @@ class TaskTest extends TestCase
         $response->assertSessionHasErrors(['name' => 'Задача с таким именем уже существует']);
     }
 
-    public function testNonValidStatusCreationErrorDisplay(): void
+    public function testNonValidTaskCreationErrorDisplay(): void
     {
         $response = $this->actingAs($this->user)
             ->followingRedirects()
@@ -150,7 +150,7 @@ class TaskTest extends TestCase
         $response->assertSee('Задача с таким именем уже существует');
     }
 
-    public function testValidStatusUpdateWhileAuth(): void
+    public function testValidTaskUpdateWhileAuth(): void
     {
         $response = $this->actingAs($this->user)
             ->patch(route('task.update', ['task' => $this->task]), [
@@ -169,7 +169,7 @@ class TaskTest extends TestCase
         ]);
     }
 
-    public function testValidStatusUpdateDisplay(): void
+    public function testValidTaskUpdateDisplay(): void
     {
         $response = $this->actingAs($this->user)
             ->followingRedirects()
@@ -186,7 +186,7 @@ class TaskTest extends TestCase
         $response->assertSee($this->user->name);
     }
 
-    public function testValidStatusUpdateWhileGuest(): void
+    public function testValidTaskUpdateWhileGuest(): void
     {
         $response = $this->patch(route('task.update', ['task' => $this->task]), [
                 'name' => 'task2',
@@ -202,7 +202,7 @@ class TaskTest extends TestCase
             ]);
     }
 
-    public function testStatusDeleteWhileAuth(): void
+    public function testTaskDeleteWhileAuth(): void
     {
         $response = $this->actingAs($this->user)
             ->delete(route('task.destroy', ['task' => $this->task]));
@@ -217,7 +217,7 @@ class TaskTest extends TestCase
         $this->assertDatabaseCount('tasks', 0);
     }
 
-    public function testStatusDeleteDisplay(): void
+    public function testTaskDeleteDisplay(): void
     {
         $response = $this->actingAs($this->user)
             ->followingRedirects()
@@ -227,7 +227,7 @@ class TaskTest extends TestCase
         $response->assertSee('Задача успешно удалена');
     }
 
-    public function testStatusDeleteWhileGuest(): void
+    public function testTaskDeleteWhileGuest(): void
     {
         $response = $this->delete(route('task.destroy', ['task' => $this->task]));
 
